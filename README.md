@@ -1,0 +1,1 @@
+Repositorio sobre el sitio web "Deportivo Aztlán" que será remodelado para mejorar su compatibilidad web en distintos dispositivos.
