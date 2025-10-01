@@ -138,7 +138,7 @@ export const LandingDesktop = (): JSX.Element => {
 
   return (
     <div
-      className="bg-[url(https://c.animaapp.com/mg6v8zwbkxJVkD/img/fondo.svg)] bg-[100%_100%] overflow-hidden w-full h-full relative scale-[0.9]"
+      className="bg-[url(https://c.animaapp.com/mg6v8zwbkxJVkD/img/fondo.svg)] bg-[100%_100%] overflow-hidden w-full h-full relative"
   style={{ transformOrigin: "top left" }}
   data-model-id="78:45"
     >
