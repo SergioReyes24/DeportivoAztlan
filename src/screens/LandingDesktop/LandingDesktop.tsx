@@ -1,4 +1,6 @@
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -75,147 +77,159 @@ const faqItems = [
 ];
 
 export const LandingDesktop = (): JSX.Element => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="bg-cover overflow-hidden w-full h-full relative">
-      {/* Hero Section */}
-      <motion.section
-        className="relative h-[800px] bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/IMG/cancha-alberca.png')",
-        }}
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+      {/* HEADER fuera del Hero */}
+      <Header onMenuToggle={setMenuOpen} />
+
+      {/* Contenedor principal con padding dinámico debajo del menú */}
+      <div
+        className={`transition-all duration-300 ${
+          menuOpen ? "pt-[260px] sm:pt-[100px]" : "pt-0"
+        }`}
       >
-        {/* Header con logo incluido */}
-        <Header />
-
-        {/* Hero Content */}
-        <motion.div
-          className="flex flex-col items-center justify-center text-center px-4 mt-[100px]"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-        >
-          <h1 className="text-white text-5xl font-bold mb-4 drop-shadow-md">
-            Tu lugar para entrenar, convivir y crecer.
-          </h1>
-          <p className="text-white text-2xl mb-8">
-            Inscríbete hoy y empieza a disfrutar del deporte como nunca.
-          </p>
-          <motion.div whileHover={{ scale: 1.05 }}>
-            <Button className="h-[50px] w-[300px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
-              Únete ya
-            </Button>
-          </motion.div>
-        </motion.div>
-      </motion.section>
-
-      {/* Activities Section */}
-      <section className="py-20 px-4 overflow-hidden">
-        <h2 className="text-center text-3xl font-semibold mb-16 text-neutral-900">
-          Actividades destacadas
-        </h2>
-
-        <motion.div
-          className="flex gap-8"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
+        {/* Hero Section */}
+        <motion.section
+        className="relative h-[400px] sm:h-[400px] p-10 bg-cover bg-center md:p-60"
+          style={{
+            backgroundImage: "url('/IMG/cancha-alberca.png')",
           }}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
         >
-          {[...activities, ...activities].map((activity, index) => (
-            <motion.div key={index} whileHover={{ scale: 1.05 }}>
-              <Card className="min-w-[250px] bg-[#2596be] border-none rounded-[10px] overflow-hidden transition-transform duration-300">
-                <CardContent className="p-0">
-                  <img
-                    className="w-full h-[200px] object-cover rounded-t-[5px]"
-                    alt={activity.title}
-                    src={activity.image}
-                  />
-                  <div className="p-6 text-center">
-                    <h3 className="text-white font-semibold mb-2">
-                      {activity.title}
-                    </h3>
-                    <p className="text-white text-sm">{activity.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
+          <motion.div
+            className="flex flex-col items-center justify-center text-center px-4 mt-0"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2 }}
+          >
+            <h1 className="text-white text-4xl sm:text-5xl font-bold mb-4 drop-shadow-md">
+              Tu lugar para entrenar, convivir y crecer.
+            </h1>
+            <p className="text-white text-lg sm:text-2xl mb-8">
+              Inscríbete hoy y empieza a disfrutar del deporte como nunca.
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Link to="/register">
+                <Button className="h-[50px] w-[250px] sm:w-[300px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
+                  Únete ya
+                </Button>
+              </Link>
             </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* FAQ Section */}
-      <motion.section
-        className="py-20 px-4"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-semibold text-center mb-10 text-neutral-900">
-            Preguntas Frecuentes (FAQ)
-          </h2>
-
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqItems.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border border-black rounded-[10px] px-4"
-              >
-                <AccordionTrigger
-                  className="font-medium text-lg text-left py-4 transition-colors hover:bg-[#00c0e8] hover:text-black"
-                  style={{ textDecoration: "none" }}
-                >
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-black text-base pb-4">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </motion.section>
-
-      {/* CTA Section */}
-      <motion.section
-        className="bg-neutral-900 py-20"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <motion.img
-            className="w-[188px] h-[227px] object-cover mx-auto mb-8"
-            alt="Logoplataazucompleto"
-            src="/IMG/logo.png"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1 }}
-          />
-
-          <h2 className="text-white text-4xl font-bold mb-4">
-            Empieza hoy en el Deportivo Aztlán
-          </h2>
-          <p className="text-white text-lg mb-8">
-            No esperes más para activarte, convivir y alcanzar tus metas.
-          </p>
-
-          <motion.div whileHover={{ scale: 1.05 }}>
-            <Button className="h-[50px] w-[695px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
-              Regístrate
-            </Button>
           </motion.div>
-        </div>
-      </motion.section>
+        </motion.section>
 
-      {/* Footer */}
-      <Footer />
+        {/* Activities Section */}
+        <section className="py-20 px-4 overflow-hidden">
+          <h2 className="text-center text-3xl font-semibold mb-16 text-neutral-900">
+            Actividades destacadas
+          </h2>
+
+          <motion.div
+            className="flex gap-8"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            {[...activities, ...activities].map((activity, index) => (
+              <motion.div key={index} whileHover={{ scale: 1.05 }}>
+                <Card className="min-w-[250px] bg-[#2596be] border-none rounded-[10px] overflow-hidden transition-transform duration-300">
+                  <CardContent className="p-0">
+                    <img
+                      className="w-full h-[200px] object-cover rounded-t-[5px]"
+                      alt={activity.title}
+                      src={activity.image}
+                    />
+                    <div className="p-6 text-center">
+                      <h3 className="text-white font-semibold mb-2">
+                        {activity.title}
+                      </h3>
+                      <p className="text-white text-sm">{activity.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* FAQ Section */}
+        <motion.section
+          className="py-20 px-4"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-semibold text-center mb-10 text-neutral-900">
+              Preguntas Frecuentes (FAQ)
+            </h2>
+
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqItems.map((item, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border border-black rounded-[10px] px-4"
+                >
+                  <AccordionTrigger
+                    className="font-medium text-lg text-left py-4 transition-colors hover:bg-[#00c0e8] hover:text-black"
+                    style={{ textDecoration: "none" }}
+                  >
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-black text-base pb-4">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </motion.section>
+
+        {/* CTA Section */}
+        <motion.section
+          className="bg-neutral-900 py-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="max-w-4xl mx-auto text-center px-4">
+            <motion.img
+              className="w-[120px] sm:w-[188px] h-[145px] sm:h-[227px] object-cover mx-auto mb-8"
+              alt="Logoplataazucompleto"
+              src="/IMG/logo.png"
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1 }}
+            />
+
+            <h2 className="text-white text-2xl sm:text-4xl font-bold mb-4">
+              Empieza hoy en el Deportivo Aztlán
+            </h2>
+            <p className="text-white text-base sm:text-lg mb-8">
+              No esperes más para activarte, convivir y alcanzar tus metas.
+            </p>
+
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Link to="/register">
+                <Button className="h-[50px] w-[250px] sm:w-[695px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
+                  Regístrate
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Footer */}
+        <Footer />
+      </div>
     </div>
   );
 };
