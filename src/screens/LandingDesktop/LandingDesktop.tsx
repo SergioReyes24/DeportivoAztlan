@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -8,7 +7,8 @@ import {
 } from "../../components/ui/accordion";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 
 const activities = [
   {
@@ -74,71 +74,21 @@ const faqItems = [
   },
 ];
 
-const navigationItems = [
-  { label: "Nosotros", href: "#" },
-  { label: "Contacto", href: "#" },
-];
-
-const footerLinks = [
-  { label: "Empresa", href: "#" },
-  { label: "Nosotros", href: "#" },
-  { label: "Contacto", href: "#" },
-];
-
-const legalLinks = [
-  {
-    label: "© 2025 Deportivo Aztlán. Todos los derechos reservados.",
-    href: "#",
-  },
-  { label: "Términos y condiciones", href: "#" },
-  { label: "Aviso de privacidad", href: "#" },
-];
-
-const socialIcons = [
-  { src: "/IMG/vector-17.svg", alt: "Social media" },
-  { src: "/IMG/vector.svg", alt: "Social media" },
-  { src: "/IMG/vector-5.svg", alt: "Social media" },
-];
-
 export const LandingDesktop = (): JSX.Element => {
   return (
     <div className="bg-cover overflow-hidden w-full h-full relative">
       {/* Hero Section */}
       <motion.section
-        className="relative h-[800px] bg-[#2596BE] bg-cover bg-center"
+        className="relative h-[800px] bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/IMG/cancha-alberca.png')",
+        }}
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        {/* Header */}
-        <header className="flex items-center justify-between px-[50px] py-6 w-full">
-          <motion.img
-            className="w-20 h-[97px] object-cover"
-            alt="Logoplataazucompleto"
-            src="/IMG/logo.png"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-
-          <nav className="flex items-center gap-[50px]">
-            {navigationItems.map((item, index) => (
-              <motion.a
-                key={index}
-                href={item.href}
-                className="text-white hover:text-neutral-100 transition-colors"
-                whileHover={{ scale: 1.1 }}
-              >
-                {item.label}
-              </motion.a>
-            ))}
-            <Button className="bg-white text-[#2596BE] hover:bg-[#00c0e8] hover:text-black transition">
-              Inicia sesión
-            </Button>
-            <Button className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
-              Regístrate
-            </Button>
-          </nav>
-        </header>
+        {/* Header con logo incluido */}
+        <Header />
 
         {/* Hero Content */}
         <motion.div
@@ -265,70 +215,9 @@ export const LandingDesktop = (): JSX.Element => {
       </motion.section>
 
       {/* Footer */}
-      <footer className="px-[110px] py-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-start justify-between mb-8">
-            <div className="flex-1">
-              <p className="text-neutral-900 mb-4">
-                Recibe promos especiales, alertas de tarifas bajas y novedades.
-              </p>
-
-              <div className="flex items-center gap-2.5 mb-4">
-                <span className="text-neutral-900">Correo electrónico</span>
-                <span className="text-[#2596be]">*</span>
-              </div>
-
-              <div className="flex gap-2.5">
-                <Input className="w-[250px] h-[35px] bg-white text-black rounded-[5px] border border-neutral-900" />
-                <Button className="w-[250px] h-[35px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
-                  Suscribirme
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-end">
-              <h3 className="text-neutral-900 font-semibold mb-4">Empresa</h3>
-              {footerLinks.slice(1).map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className="text-neutral-900 hover:text-[#2596be] transition-colors mb-2"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <img className="w-full h-px mb-8" alt="Line" src="/IMG/line-19.svg" />
-
-          <div className="flex items-center justify-between">
-            <div className="flex gap-8">
-              {legalLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className="text-neutral-900 opacity-70 hover:opacity-100 transition-opacity"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-
-            <div className="flex gap-4">
-              {socialIcons.map((icon, index) => (
-                <motion.img
-                  key={index}
-                  className="w-4 h-4 opacity-70 hover:opacity-100 cursor-pointer"
-                  alt={icon.alt}
-                  src={icon.src}
-                  whileHover={{ scale: 1.2 }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
+
+export default LandingDesktop;
