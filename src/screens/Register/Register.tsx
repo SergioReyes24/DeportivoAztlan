@@ -24,8 +24,7 @@ const Register = () => {
     } else {
       users.push({ name, email, password });
       localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("currentUser", JSON.stringify({ name, email })); // Guardamos sesión
-      setAlert("✅ Registro exitoso. Redirigiendo...");
+      setAlert("✅ Registro exitoso. Redirigiendo a login...");
       setTimeout(() => navigate("/login"), 2000); // Redirige al login
     }
 
@@ -45,10 +44,31 @@ const Register = () => {
           <h2 className="text-center font-bold text-2xl mb-8 text-[#219EBC]">Crea tu cuenta</h2>
 
           <form onSubmit={handleRegister} className="flex flex-col gap-5">
-            <input type="text" name="name" placeholder="Nombre completo*" required className="border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]" />
-            <input type="email" name="email" placeholder="Correo electrónico*" required className="border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]" />
-            <input type="password" name="password" placeholder="Contraseña*" required className="border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]" />
-            <Button type="submit" className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white text-base py-3">
+            <input
+              type="text"
+              name="name"
+              placeholder="Nombre completo*"
+              required
+              className="border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Correo electrónico*"
+              required
+              className="border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Contraseña*"
+              required
+              className="border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]"
+            />
+            <Button
+              type="submit"
+              className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white text-base py-3"
+            >
               Crear cuenta
             </Button>
           </form>

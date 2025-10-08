@@ -3,10 +3,11 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { Button } from "../../components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [alert, setAlert] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +19,8 @@ const Login = () => {
 
     if (user) {
       localStorage.setItem("currentUser", JSON.stringify(user));
-      setAlert("✅ Inicio de sesión exitoso. ¡Bienvenido!");
+      setAlert("✅ Inicio de sesión exitoso. Redirigiendo al inicio...");
+      setTimeout(() => navigate("/"), 2000); // Redirige al landing/inicio
     } else {
       setAlert("❌ Credenciales incorrectas.");
     }
@@ -57,7 +59,10 @@ const Login = () => {
             <a href="#" className="text-sm text-gray-500 text-right hover:underline">
               ¿Olvidaste tu contraseña?
             </a>
-            <Button type="submit" className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white text-base py-3">
+            <Button
+              type="submit"
+              className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white text-base py-3"
+            >
               Iniciar sesión
             </Button>
           </form>
