@@ -6,18 +6,21 @@ import { motion } from "framer-motion";
 
 const Contact: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [messageSent, setMessageSent] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessageSent("✅ Gracias, tu mensaje ha sido recibido.");
+    e.currentTarget.reset(); // limpia el formulario
+    setTimeout(() => setMessageSent(""), 3000); // mensaje desaparece tras 3s
+  };
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-gray-800">
-      {/* HEADER fuera del Hero */}
+      {/* HEADER */}
       <Header onMenuToggle={setMenuOpen} />
 
-      {/* Contenedor principal con padding dinámico debajo del menú */}
-      <div
-        className={`transition-all duration-300 ${
-          menuOpen ? "pt-[250px] sm:pt-[100px]" : "pt-0"
-        }`}
-      >
+      <div className={`transition-all duration-300 ${menuOpen ? "pt-[250px] sm:pt-[100px]" : "pt-0"}`}>
         {/* HERO */}
         <motion.section
           initial={{ opacity: 0, y: -50 }}
@@ -26,7 +29,7 @@ const Contact: React.FC = () => {
           className="relative w-full h-[50vh] sm:h-[60vh] flex items-center justify-center bg-[#219EBC]"
         >
           <img
-            src="/IMG/cancha-soccer.png"
+            src="/IMG/cancha-soccer.webp"
             alt="Atención al cliente"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
@@ -40,8 +43,7 @@ const Contact: React.FC = () => {
               Contáctanos
             </h1>
             <p className="max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-              Estamos aquí para ayudarte. Completa el formulario y te responderemos
-              lo antes posible.
+              Estamos aquí para ayudarte. Completa el formulario y te responderemos lo antes posible.
             </p>
           </motion.div>
         </motion.section>
@@ -58,7 +60,7 @@ const Contact: React.FC = () => {
             <h3 className="text-center text-[#219EBC] mb-6 sm:mb-8 font-bold text-2xl">
               Formulario de contacto
             </h3>
-            <form className="flex flex-col gap-4 sm:gap-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
               <input
                 className="p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#00c0e8]"
                 type="text"
@@ -87,10 +89,17 @@ const Contact: React.FC = () => {
                 placeholder="Mensaje*"
                 required
               ></textarea>
-              <Button className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white text-base py-3 transition">
+              <Button
+                type="submit"
+                className="bg-[#00c0e8] hover:bg-[#00a8d0] text-white text-base py-3 transition"
+              >
                 Enviar mensaje
               </Button>
             </form>
+
+            {messageSent && (
+              <p className="mt-4 text-center text-green-600 font-medium">{messageSent}</p>
+            )}
           </motion.div>
 
           <div className="mt-8 sm:mt-10 text-center text-gray-600 text-sm sm:text-base leading-relaxed">

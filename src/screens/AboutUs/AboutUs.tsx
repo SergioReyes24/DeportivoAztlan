@@ -8,12 +8,12 @@ const AboutUs: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-gray-800">
-      {/* HEADER */}
+      {/* Header con control de menú */}
       <Header onMenuToggle={setMenuOpen} />
 
-      {/* CONTENIDO PRINCIPAL */}
+      {/* Contenido principal con margen dinámico según menú */}
       <div className={`transition-all duration-300 ${menuOpen ? "mt-[250px] sm:mt-[150px]" : "mt-0"}`}>
-        {/* HERO / IMAGEN PRINCIPAL */}
+        {/* Hero / Imagen principal */}
         <motion.section
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -21,7 +21,7 @@ const AboutUs: React.FC = () => {
           className="relative w-full h-[60vh] sm:h-[50vh] flex items-center justify-center bg-[#219EBC]"
         >
           <img
-            src="/IMG/estudioballet.png"
+            src="/IMG/estudioballet.webp" // Cambiado a .webp
             alt="Sobre nosotros"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
@@ -46,7 +46,7 @@ const AboutUs: React.FC = () => {
           </div>
         </motion.section>
 
-        {/* VALORES */}
+        {/* Valores */}
         <section className="bg-white py-16 text-center px-6">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-10 text-[#023047]">Nuestros Valores</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -65,7 +65,7 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
 
-        {/* MISIÓN Y VISIÓN */}
+        {/* Misión y Visión */}
         <section className="bg-[#1A1A1A] text-white py-20 px-6 text-center">
           <h3 className="text-3xl sm:text-4xl font-bold mb-12">Nuestra Esencia</h3>
           <div className="flex flex-col md:flex-row justify-center items-start gap-12 max-w-5xl mx-auto">
@@ -105,7 +105,7 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
 
-        {/* FOOTER */}
+        {/* Footer */}
         <Footer />
       </div>
     </div>

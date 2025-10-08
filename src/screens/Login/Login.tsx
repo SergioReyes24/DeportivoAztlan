@@ -5,15 +5,17 @@ import { Button } from "../../components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [alert, setAlert] = useState<string>("");
+const Login: React.FC = () => {
+  const [alert, setAlert] = useState<string>(""); // Mensaje de alerta
   const navigate = useNavigate();
 
+  // Función para manejar inicio de sesión
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement).value;
+
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find((u: any) => u.email === email && u.password === password);
 
@@ -25,13 +27,15 @@ const Login = () => {
       setAlert("❌ Credenciales incorrectas.");
     }
 
-    setTimeout(() => setAlert(""), 3000);
+    setTimeout(() => setAlert(""), 3000); // Limpia la alerta
   };
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
+      {/* Header */}
       <Header />
 
+      {/* Contenedor del formulario */}
       <main className="flex-grow flex items-center justify-center bg-gray-50 px-4 py-10 sm:px-6 sm:py-16">
         <motion.div
           className="bg-white border border-gray-200 rounded-2xl shadow-lg w-full max-w-md p-8 sm:p-10"
@@ -41,6 +45,7 @@ const Login = () => {
         >
           <h2 className="text-center font-bold text-2xl mb-8 text-[#219EBC]">Inicia Sesión</h2>
 
+          {/* Formulario */}
           <form onSubmit={handleLogin} className="flex flex-col gap-5">
             <input
               type="email"
@@ -67,6 +72,7 @@ const Login = () => {
             </Button>
           </form>
 
+          {/* Alerta de inicio de sesión */}
           <AnimatePresence>
             {alert && (
               <motion.div
@@ -82,6 +88,7 @@ const Login = () => {
             )}
           </AnimatePresence>
 
+          {/* Link a registro */}
           <p className="text-center text-sm mt-6 text-gray-600">
             ¿Aún no eres parte del Deportivo Aztlán?{" "}
             <Link to="/register" className="text-[#00a8d0] font-semibold hover:underline">
@@ -91,6 +98,7 @@ const Login = () => {
         </motion.div>
       </main>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
