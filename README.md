@@ -38,7 +38,7 @@ npm install
 npm run dev
 ```
 Estructura del proyecto:
-
+```bash
 DeportivoAztlan/
 ├── public/
 │   └── IMG/           # Imágenes estáticas
@@ -49,3 +49,4 @@ DeportivoAztlan/
 │   └── main.tsx       # Punto de entrada
 ├── tailwind.config.js # Configuración de Tailwind CSS
 └── vite.config.ts     # Configuración de Vite
+```
