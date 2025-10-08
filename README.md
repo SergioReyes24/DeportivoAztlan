@@ -24,19 +24,19 @@ Este proyecto es una aplicación web interactiva desarrollada con **React**, **T
 # Clona este repositorio en tu máquina local:
 ```bash
 git clone https://github.com/SergioReyes24/DeportivoAztlan.git
-
+```
 # Navega al directorio del proyecto:
 ```bash
 cd DeportivoAztlan
-
+```
 # Instala las dependencias:
 ```bash
 npm install
-
+```
 # Inicia la aplicación en modo de desarrollo:
 ```bash
 npm run dev
-
+```
 Estructura del proyecto:
 
 DeportivoAztlan/
