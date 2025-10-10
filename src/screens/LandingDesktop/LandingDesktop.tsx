@@ -19,28 +19,28 @@ const activities = [
     title: "🏀 Básquetbol",
     description:
       "Entrena tus reflejos, mejora tu coordinación y disfruta partidos llenos de energía en nuestras canchas.",
-    image: "/IMG/cancha-basketball.webp",
+    image: "IMG/cancha-basketball.webp",
   },
   {
     id: 2,
     title: "🩰 Ballet",
     description:
       "Expresa tu cuerpo con gracia y disciplina. Contamos con clases para todas las edades y niveles.",
-    image: "/IMG/estudioballet.webp",
+    image: "IMG/estudioballet.webp",
   },
   {
     id: 3,
     title: "🏊 Natación",
     description:
       "Fortalece tu cuerpo y mente con entrenamientos acuáticos en una alberca equipada para tu comodidad.",
-    image: "/IMG/cancha-alberca.webp",
+    image: "IMG/cancha-alberca.webp",
   },
   {
     id: 4,
     title: "⚽ Fútbol",
     description:
       "Vive la pasión del deporte más popular con entrenamientos, ligas y torneos para todas las categorías.",
-    image: "/IMG/cancha-soccer.webp",
+    image: "IMG/cancha-soccer.webp",
   },
 ];
 
@@ -95,7 +95,7 @@ const LandingDesktop: React.FC = () => {
         {/* Hero Section */}
         <motion.section
           className="relative h-[400px] sm:h-[400px] p-10 bg-cover bg-center md:p-60"
-          style={{ backgroundImage: "url('/IMG/cancha-alberca.webp')" }}
+          style={{ backgroundImage: "url('IMG/cancha-alberca.webp')" }}
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
@@ -127,31 +127,37 @@ const LandingDesktop: React.FC = () => {
           <h2 className="text-center text-3xl font-semibold mb-16 text-neutral-900">
             Actividades destacadas
           </h2>
-          <motion.div
-            className="flex gap-8"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          >
-            {[...activities, ...activities].map((activity, index) => (
-              <motion.div key={index} whileHover={{ scale: 1.05 }}>
-                <Card className="min-w-[250px] bg-[#2596be] border-none rounded-[10px] overflow-hidden transition-transform duration-300">
-                  <CardContent className="p-0">
-                    <img
-                      className="w-full h-[200px] object-cover rounded-t-[5px]"
-                      alt={activity.title}
-                      src={activity.image}
-                    />
-                    <div className="p-6 text-center">
-                      <h3 className="text-white font-semibold mb-2">
-                        {activity.title}
-                      </h3>
-                      <p className="text-white text-sm">{activity.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="relative w-full overflow-hidden">
+            <motion.div
+              className="flex gap-8"
+              animate={{ x: ["0px", "-100%"] }}
+              transition={{
+                x: { repeat: Infinity, duration: 20, ease: "linear" },
+              }}
+            >
+              {[...activities, ...activities].map((activity, index) => (
+                <motion.div key={index} whileHover={{ scale: 1.05 }}>
+                  <Card className="min-w-[250px] bg-[#2596be] border-none rounded-[10px] overflow-hidden transition-transform duration-300">
+                    <CardContent className="p-0">
+                      <img
+                        className="w-full h-[200px] object-cover rounded-t-[5px]"
+                        alt={activity.title}
+                        src={activity.image}
+                      />
+                      <div className="p-6 text-center">
+                        <h3 className="text-white font-semibold mb-2">
+                          {activity.title}
+                        </h3>
+                        <p className="text-white text-sm">
+                          {activity.description}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </section>
 
         {/* FAQ */}
@@ -195,7 +201,7 @@ const LandingDesktop: React.FC = () => {
             <motion.img
               className="w-[120px] sm:w-[188px] h-[145px] sm:h-[227px] object-cover mx-auto mb-8"
               alt="Logo completo"
-              src="/IMG/logo.webp"
+              src="IMG/logo.webp"
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1 }}

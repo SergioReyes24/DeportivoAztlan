@@ -14,7 +14,9 @@ const Footer: React.FC = () => {
     <footer className="bg-[#F8F9FA] text-gray-600 text-xs sm:text-sm py-10 px-4 sm:px-6 mt-auto">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 border-b pb-6">
         <div>
-          <p className="mb-2 text-sm sm:text-base">Recibe promociones, alertas de tarifas bajas y novedades.</p>
+          <p className="mb-2 text-sm sm:text-base">
+            Recibe promociones, alertas de tarifas bajas y novedades.
+          </p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-0">
             <input
               type="email"
@@ -27,6 +29,16 @@ const Footer: React.FC = () => {
             </button>
           </form>
           {message && <p className="mt-2 text-green-600 text-sm">{message}</p>}
+
+          {/* Redes sociales */}
+          <div className="flex gap-4 mt-4">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <img src="IMG/Facebook.svg" alt="Facebook" className="w-6 h-6 hover:opacity-80" />
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <img src="IMG/Instagram.svg" alt="Instagram" className="w-6 h-6 hover:opacity-80" />
+            </a>
+          </div>
         </div>
 
         <div className="md:col-span-2 flex flex-col sm:flex-row justify-start sm:justify-end items-start sm:items-end space-y-4 sm:space-y-0 sm:space-x-8 mt-4 md:mt-0">

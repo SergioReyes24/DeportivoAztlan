@@ -21,7 +21,7 @@ const AboutUs: React.FC = () => {
           className="relative w-full h-[60vh] sm:h-[50vh] flex items-center justify-center bg-[#219EBC]"
         >
           <img
-            src="/IMG/estudioballet.webp" // Cambiado a .webp
+            src="IMG/estudioballet.webp" // Cambiado a .webp
             alt="Sobre nosotros"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />

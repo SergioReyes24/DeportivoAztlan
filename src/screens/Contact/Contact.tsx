@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
           className="relative w-full h-[50vh] sm:h-[60vh] flex items-center justify-center bg-[#219EBC]"
         >
           <img
-            src="/IMG/cancha-soccer.webp"
+            src="IMG/cancha-soccer.webp"
             alt="Atención al cliente"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />

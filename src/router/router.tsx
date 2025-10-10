@@ -5,27 +5,18 @@ import Contact from "../screens/Contact/Contact";
 import Login from "../screens/Login/Login";
 import Register from "../screens/Register/Register";
 
-const router = createBrowserRouter([
+// Usa basename para GitHub Pages
+const router = createBrowserRouter(
+  [
+    { path: "/", element: <LandingDesktop /> },
+    { path: "/about", element: <AboutUs /> },
+    { path: "/contact", element: <Contact /> },
+    { path: "/login", element: <Login /> },
+    { path: "/register", element: <Register /> },
+  ],
   {
-    path: "/",
-    element: <LandingDesktop />,
-  },
-  {
-    path: "/about",
-    element: <AboutUs />,
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-]);
+    basename: "/DeportivoAztlan/", // <-- clave para GitHub Pages
+  }
+);
 
 export default router;
