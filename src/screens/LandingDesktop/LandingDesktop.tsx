@@ -86,19 +86,22 @@ const LandingDesktop: React.FC = () => {
       {/* Header con control de menú */}
       <Header onMenuToggle={setMenuOpen} />
 
-      {/* Contenedor principal, ajusta padding según menú */}
+      {/* Contenedor principal */}
       <div
         className={`transition-all duration-300 ${
           menuOpen ? "pt-[260px] sm:pt-[100px]" : "pt-0"
         }`}
       >
-        {/* Hero Section */}
+        {/* Hero Section optimizada */}
         <motion.section
           className="relative h-[400px] sm:h-[400px] p-10 bg-cover bg-center md:p-60"
-          style={{ backgroundImage: "url('IMG/cancha-alberca.webp')" }}
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          style={{
+            backgroundImage: "url('IMG/cancha-alberca.webp')",
+            backgroundColor: "#004b63", // color temporal mientras carga
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
         >
           <motion.div
             className="flex flex-col items-center justify-center text-center px-4"
@@ -122,7 +125,7 @@ const LandingDesktop: React.FC = () => {
           </motion.div>
         </motion.section>
 
-        {/* Actividades */}
+        {/* Actividades destacadas */}
         <section className="py-20 px-4 overflow-hidden">
           <h2 className="text-center text-3xl font-semibold mb-16 text-neutral-900">
             Actividades destacadas
@@ -143,6 +146,7 @@ const LandingDesktop: React.FC = () => {
                         className="w-full h-[200px] object-cover rounded-t-[5px]"
                         alt={activity.title}
                         src={activity.image}
+                        loading="lazy"
                       />
                       <div className="p-6 text-center">
                         <h3 className="text-white font-semibold mb-2">
@@ -160,7 +164,7 @@ const LandingDesktop: React.FC = () => {
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* Preguntas Frecuentes */}
         <motion.section
           className="py-20 px-4"
           initial={{ opacity: 0, y: 40 }}
@@ -202,6 +206,7 @@ const LandingDesktop: React.FC = () => {
               className="w-[120px] sm:w-[188px] h-[145px] sm:h-[227px] object-cover mx-auto mb-8"
               alt="Logo completo"
               src="IMG/logo.webp"
+              loading="lazy"
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1 }}
