@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -80,52 +80,52 @@ const faqItems = [
 
 const LandingDesktop: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  // Pre-cargar la imagen del hero para evitar parpadeo
+  useEffect(() => {
+    const img = new Image();
+    img.src = "IMG/cancha-alberca.webp";
+    img.onload = () => setHeroLoaded(true);
+  }, []);
 
   return (
     <div className="bg-cover overflow-hidden w-full h-full relative">
-      {/* Header con control de menú */}
       <Header onMenuToggle={setMenuOpen} />
 
-      {/* Contenedor principal */}
       <div
         className={`transition-all duration-300 ${
           menuOpen ? "pt-[260px] sm:pt-[100px]" : "pt-0"
         }`}
       >
-        {/* Hero Section optimizada */}
-        <motion.section
-          className="relative h-[400px] sm:h-[400px] p-10 bg-cover bg-center md:p-60"
+        {/* Hero optimizado */}
+        <section
+          className="relative h-[400px] sm:h-[400px] p-10 md:p-60 flex items-center justify-center text-center transition-all duration-700"
           style={{
-            backgroundImage: "url('IMG/cancha-alberca.webp')",
-            backgroundColor: "#004b63", // color temporal mientras carga
+            backgroundImage: heroLoaded
+              ? "url('IMG/cancha-alberca.webp')"
+              : "linear-gradient(135deg, #004b63, #007fa3)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
         >
-          <motion.div
-            className="flex flex-col items-center justify-center text-center px-4"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
-          >
-            <h1 className="text-white text-4xl sm:text-5xl font-bold mb-4 drop-shadow-md">
+          <div className="bg-black/40 absolute inset-0" />
+          <div className="relative z-10 text-white">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4 drop-shadow-lg">
               Tu lugar para entrenar, convivir y crecer.
             </h1>
-            <p className="text-white text-lg sm:text-2xl mb-8">
+            <p className="text-lg sm:text-2xl mb-8">
               Inscríbete hoy y empieza a disfrutar del deporte como nunca.
             </p>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <Link to="/register">
-                <Button className="h-[50px] w-[250px] sm:w-[300px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
-                  Únete ya
-                </Button>
-              </Link>
-            </motion.div>
-          </motion.div>
-        </motion.section>
+            <Link to="/register">
+              <Button className="h-[50px] w-[250px] sm:w-[300px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
+                Únete ya
+              </Button>
+            </Link>
+          </div>
+        </section>
 
-        {/* Actividades destacadas */}
+        {/* Actividades con lazy loading */}
         <section className="py-20 px-4 overflow-hidden">
           <h2 className="text-center text-3xl font-semibold mb-16 text-neutral-900">
             Actividades destacadas
@@ -135,41 +135,48 @@ const LandingDesktop: React.FC = () => {
               className="flex gap-8"
               animate={{ x: ["0px", "-100%"] }}
               transition={{
-                x: { repeat: Infinity, duration: 20, ease: "linear" },
+                x: { repeat: Infinity, duration: 25, ease: "linear" },
               }}
             >
               {[...activities, ...activities].map((activity, index) => (
-                <motion.div key={index} whileHover={{ scale: 1.05 }}>
-                  <Card className="min-w-[250px] bg-[#2596be] border-none rounded-[10px] overflow-hidden transition-transform duration-300">
-                    <CardContent className="p-0">
+                <Card
+                  key={index}
+                  className="min-w-[250px] bg-[#2596be] border-none rounded-[10px] overflow-hidden"
+                >
+                  <CardContent className="p-0">
+                    <Suspense
+                      fallback={
+                        <div className="w-full h-[200px] bg-gray-300 animate-pulse" />
+                      }
+                    >
                       <img
                         className="w-full h-[200px] object-cover rounded-t-[5px]"
-                        alt={activity.title}
+                        alt={`Actividad de ${activity.title}`}
                         src={activity.image}
                         loading="lazy"
+                        width="300"
+                        height="200"
                       />
-                      <div className="p-6 text-center">
-                        <h3 className="text-white font-semibold mb-2">
-                          {activity.title}
-                        </h3>
-                        <p className="text-white text-sm">
-                          {activity.description}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                    </Suspense>
+                    <div className="p-6 text-center">
+                      <h3 className="text-white font-semibold mb-2">
+                        {activity.title}
+                      </h3>
+                      <p className="text-white text-sm">{activity.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </motion.div>
           </div>
         </section>
 
-        {/* Preguntas Frecuentes */}
+        {/* FAQ */}
         <motion.section
           className="py-20 px-4"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-semibold text-center mb-10 text-neutral-900">
@@ -202,14 +209,13 @@ const LandingDesktop: React.FC = () => {
           transition={{ duration: 1 }}
         >
           <div className="max-w-4xl mx-auto text-center px-4">
-            <motion.img
+            <img
               className="w-[120px] sm:w-[188px] h-[145px] sm:h-[227px] object-cover mx-auto mb-8"
-              alt="Logo completo"
+              alt="Logo Deportivo Aztlán"
               src="IMG/logo.webp"
               loading="lazy"
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1 }}
+              width="180"
+              height="200"
             />
             <h2 className="text-white text-2xl sm:text-4xl font-bold mb-4">
               Empieza hoy en el Deportivo Aztlán
@@ -217,17 +223,14 @@ const LandingDesktop: React.FC = () => {
             <p className="text-white text-base sm:text-lg mb-8">
               No esperes más para activarte, convivir y alcanzar tus metas.
             </p>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <Link to="/register">
-                <Button className="h-[50px] w-[250px] sm:w-[695px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
-                  Regístrate
-                </Button>
-              </Link>
-            </motion.div>
+            <Link to="/register">
+              <Button className="h-[50px] w-[250px] sm:w-[695px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
+                Regístrate
+              </Button>
+            </Link>
           </div>
         </motion.section>
 
-        {/* Footer */}
         <Footer />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu } from "lucide-react";
@@ -11,6 +11,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string } | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = localStorage.getItem("currentUser");
@@ -31,7 +32,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
-    window.location.href = "/"; // redirige al inicio sin 404
+    setCurrentUser(null);
+    navigate("/"); // ✅ No da 404 en GitHub Pages con HashRouter
   };
 
   return (
@@ -52,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
         <Menu size={28} />
       </button>
 
-      {/* Menú de navegación */}
+      {/* Menú escritorio */}
       <nav className="hidden sm:flex sm:gap-6">
         <Link to="/" className="text-white hover:text-neutral-100 transition">
           Inicio
@@ -130,7 +132,10 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
                   👋 Bienvenido, <span className="font-semibold">{currentUser.name}</span>
                 </p>
                 <Button
-                  onClick={handleLogout}
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
                   className="bg-white text-[#2596BE] hover:bg-[#00c0e8] hover:text-black mt-3 mx-auto w-3/4"
                 >
                   Cerrar sesión
