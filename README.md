@@ -7,14 +7,14 @@ Este proyecto es una aplicación web interactiva desarrollada con **React**, **T
 ## Características
 
 - **Interfaz moderna y responsiva**: Diseñada con Tailwind CSS para adaptarse a cualquier dispositivo.
-- **Autenticación local**: Registro e inicio de sesión mediante almacenamiento local (sin backend).
+- **Registro e inicio de sesión**: Registro e inicio de sesión de usuarios.
 - **Formulario de contacto**: Permite a los usuarios enviar mensajes, con confirmación visual de recepción.
 - **Animaciones suaves**: Transiciones y efectos visuales con Framer Motion.
 - **Navegación intuitiva**: Implementada con React Router DOM.
 
 ## Tecnologías utilizadas
 
-- **Frontend**: React, TypeScript, Tailwind CSS
+- **Tecnologías**: React, TypeScript, Tailwind CSS
 - **Animaciones**: Framer Motion
 - **Iconos**: Lucide React
 - **Routing**: React Router DOM
