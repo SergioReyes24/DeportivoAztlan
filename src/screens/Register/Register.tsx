@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
-  const [alert, setAlert] = useState<string>(""); // Mensaje de alerta
+  const [alert, setAlert] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState(false); // <--- controla si el menú está abierto
   const navigate = useNavigate();
 
-  // Función para manejar registro de usuario
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -26,19 +26,20 @@ const Register: React.FC = () => {
       users.push({ name, email, password });
       localStorage.setItem("users", JSON.stringify(users));
       setAlert("✅ Registro exitoso. Redirigiendo a login...");
-      setTimeout(() => navigate("/login"), 2000); // Redirige al login
+      setTimeout(() => navigate("/login"), 2000);
     }
 
-    setTimeout(() => setAlert(""), 3000); // Limpia la alerta
+    setTimeout(() => setAlert(""), 3000);
   };
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
-      {/* Header */}
-      <Header />
+      <Header onMenuToggle={setMenuOpen} />
 
-      {/* Contenedor del formulario */}
-      <main className="flex-grow flex items-center justify-center bg-gray-50 px-4 py-10 sm:px-6 sm:py-16">
+      <main
+        className={`flex-grow flex items-center justify-center bg-gray-50 px-4 sm:px-6 transition-all duration-300`}
+        style={{ paddingTop: menuOpen ? 300 : 40, paddingBottom: 40 }}
+      >
         <motion.div
           className="bg-white border border-gray-200 rounded-2xl shadow-lg w-full max-w-md p-8 sm:p-10"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -47,7 +48,6 @@ const Register: React.FC = () => {
         >
           <h2 className="text-center font-bold text-2xl mb-8 text-[#219EBC]">Crea tu cuenta</h2>
 
-          {/* Formulario */}
           <form onSubmit={handleRegister} className="flex flex-col gap-5">
             <input
               type="text"
@@ -78,7 +78,6 @@ const Register: React.FC = () => {
             </Button>
           </form>
 
-          {/* Alerta de registro */}
           <AnimatePresence>
             {alert && (
               <motion.div
@@ -94,7 +93,6 @@ const Register: React.FC = () => {
             )}
           </AnimatePresence>
 
-          {/* Link a login */}
           <p className="text-center text-sm mt-6 text-gray-600">
             ¿Ya tienes una cuenta?{" "}
             <Link to="/login" className="text-[#00a8d0] font-semibold hover:underline">
@@ -104,7 +102,6 @@ const Register: React.FC = () => {
         </motion.div>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

@@ -98,9 +98,12 @@ const LandingDesktop: React.FC = () => {
           menuOpen ? "pt-[260px] sm:pt-[100px]" : "pt-0"
         }`}
       >
-        {/* Hero optimizado */}
-        <section
-          className="relative h-[400px] sm:h-[400px] p-10 md:p-60 flex items-center justify-center text-center transition-all duration-700"
+        {/* Hero optimizado con animación tipo AboutUs */}
+        <motion.section
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative h-[400px] sm:h-[400px] p-10 md:p-60 flex items-center justify-center text-center"
           style={{
             backgroundImage: heroLoaded
               ? "url('IMG/cancha-alberca.webp')"
@@ -110,20 +113,36 @@ const LandingDesktop: React.FC = () => {
           }}
         >
           <div className="bg-black/40 absolute inset-0" />
-          <div className="relative z-10 text-white">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4 drop-shadow-lg">
+          <div className="relative z-10 text-white px-6">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-4xl sm:text-5xl font-bold mb-4 drop-shadow-lg"
+            >
               Tu lugar para entrenar, convivir y crecer.
-            </h1>
-            <p className="text-lg sm:text-2xl mb-8">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-lg sm:text-2xl mb-8"
+            >
               Inscríbete hoy y empieza a disfrutar del deporte como nunca.
-            </p>
+            </motion.p>
             <Link to="/register">
-              <Button className="h-[50px] w-[250px] sm:w-[300px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
-                Únete ya
-              </Button>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.7 }}
+              >
+                <Button className="h-[50px] w-[250px] sm:w-[300px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition">
+                  Únete ya
+                </Button>
+              </motion.div>
             </Link>
           </div>
-        </section>
+        </motion.section>
 
         {/* Actividades con lazy loading */}
         <section className="py-20 px-4 overflow-hidden">
@@ -201,33 +220,63 @@ const LandingDesktop: React.FC = () => {
           </div>
         </motion.section>
 
-        {/* CTA */}
+        {/* CTA con logo animado */}
         <motion.section
           className="bg-neutral-900 py-20"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
         >
-          <div className="max-w-4xl mx-auto text-center px-4">
-            <img
-              className="w-[120px] sm:w-[188px] h-[145px] sm:h-[227px] object-cover mx-auto mb-8"
+          <div className="max-w-4xl mx-auto text-center px-4 flex flex-col items-center gap-6">
+            {/* Logo */}
+            <motion.img
+              className="w-[120px] sm:w-[188px] h-[145px] sm:h-[227px] object-cover mx-auto"
               alt="Logo Deportivo Aztlán"
               src="IMG/logo.webp"
               loading="lazy"
               width="180"
               height="200"
+              variants={{
+                hidden: { opacity: 0, scale: 0.8 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.2 } },
+              }}
             />
-            <h2 className="text-white text-2xl sm:text-4xl font-bold mb-4">
+
+            {/* Título */}
+            <motion.h2
+              className="text-white text-2xl sm:text-4xl font-bold"
+              variants={{
+                hidden: { opacity: 0, scale: 0.9 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.4 } },
+              }}
+            >
               Empieza hoy en el Deportivo Aztlán
-            </h2>
-            <p className="text-white text-base sm:text-lg mb-8">
+            </motion.h2>
+
+            {/* Texto */}
+            <motion.p
+              className="text-white text-base sm:text-lg"
+              variants={{
+                hidden: { opacity: 0, scale: 0.95 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.6 } },
+              }}
+            >
               No esperes más para activarte, convivir y alcanzar tus metas.
-            </p>
-            <Link to="/register">
-              <Button className="h-[50px] w-[250px] sm:w-[695px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
-                Regístrate
-              </Button>
-            </Link>
+            </motion.p>
+
+            {/* Botón */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, scale: 0.9 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.8 } },
+              }}
+            >
+              <Link to="/register">
+                <Button className="h-[50px] w-[250px] sm:w-[695px] bg-[#00c0e8] hover:bg-[#00a8d0] text-white transition-colors">
+                  Regístrate
+                </Button>
+              </Link>
+            </motion.div>
           </div>
         </motion.section>
 
