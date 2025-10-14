@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // Permitir solicitudes del frontend
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://tusuario.github.io"],
+    origin: ["http://localhost:5173", "https://sergioreyes24.github.io"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
