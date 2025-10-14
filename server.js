@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middleware básicos
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,8 +22,19 @@ app.use(
   })
 );
 
-// Compresión Gzip para respuestas
-app.use(compression());
+// Compresión de respuestas
+app.use(
+  compression({
+    level: 6, 
+    threshold: 1024, 
+    filter: (req, res) => {
+      if (req.headers['x-no-compression']) {
+        return false; 
+      }
+      return compression.filter(req, res); 
+    },
+  })
+);
 
 // Cacheo de recursos estáticos
 const oneDay = 86400000;
@@ -46,7 +57,7 @@ app.get("/api", (req, res) => {
   });
 });
 
-// Ejemplo de endpoint GET
+// Endpoint GET
 app.get("/api/actividades", (req, res) => {
   res.json([
     { id: 1, nombre: "Básquetbol", horario: "Lunes a Viernes 8am-6pm" },
@@ -55,7 +66,7 @@ app.get("/api/actividades", (req, res) => {
   ]);
 });
 
-// Ejemplo de endpoint POST
+// Endpoint POST
 app.post("/api/inscripciones", (req, res) => {
   const { nombre, correo, disciplina } = req.body;
   if (!nombre || !correo || !disciplina)
